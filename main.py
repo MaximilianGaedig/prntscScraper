@@ -81,7 +81,7 @@ def process(link_val):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Scrape images off prnt.sc')
-    parser.add_argument('--singular-image', help='Enable or disable image recognition', default='')
+    parser.add_argument('--singular-image', help='Scrape singular image', default='')
     # parser.add_argument('--count', help='The number of images to scrape. 0 for infinite', default=0, type=int)
     parser.add_argument('--image-recognition', help='Enable or disable image recognition', default=True,
                         type=bool)
