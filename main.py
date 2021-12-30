@@ -81,6 +81,7 @@ def process(link_val):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Scrape images off prnt.sc')
+    parser.add_argument('--singular-image', help='Enable or disable image recognition', default='')
     # parser.add_argument('--count', help='The number of images to scrape. 0 for infinite', default=0, type=int)
     parser.add_argument('--image-recognition', help='Enable or disable image recognition', default=True,
                         type=bool)
@@ -89,23 +90,24 @@ if __name__ == "__main__":
     parser.add_argument('--scanned-output', help='The path where scanned images will be stored.',
                         default='images_scanned')
     args = parser.parse_args()
-
-    # item_limit = args.count
-    search_terms = args.search_terms
-    ocr = args.image_recognition
-
     if not os.path.exists(args.output):
         os.mkdir(args.output)
     if ocr:
         if not os.path.exists(args.scanned_output):
             os.mkdir(args.scanned_output)
-
-    pool = string.ascii_letters + string.digits
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        for char1 in progressbar(pool):
-            for char2 in progressbar(pool):
-                for char3 in progressbar(pool):
-                    for char4 in progressbar(pool):
-                        for char5 in progressbar(pool):
-                            letter_comb = char1 + char2 + char3 + char4 + char5
-                            process(f"{letter_comb}")
+    # item_limit = args.count
+    search_terms = args.search_terms
+    ocr = args.image_recognition
+    if args.singular_image != '':
+        args = parser.parse_args()
+        pool = string.ascii_letters + string.digits
+        with concurrent.futures.ProcessPoolExecutor() as executor:
+            for char1 in progressbar(pool):
+                for char2 in progressbar(pool):
+                    for char3 in progressbar(pool):
+                        for char4 in progressbar(pool):
+                            for char5 in progressbar(pool):
+                                letter_comb = char1 + char2 + char3 + char4 + char5
+                                process(f"{letter_comb}")
+    else:
+        scrape_image(args.singular_image)
