@@ -1,1 +1,5 @@
 requests
+pillow
+progressbar2
+opencv-python
+pytesseract
